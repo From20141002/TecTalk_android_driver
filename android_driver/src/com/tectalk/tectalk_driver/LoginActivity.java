@@ -119,7 +119,6 @@ public class LoginActivity extends Activity {
 				
 				HttpResponse response = client.execute(httpGet);
 				String _result = EntityUtils.toString(response.getEntity());
-				Log.d("aaa", "result : " + _result);
 				if(_result.contains("success")){
 					result = true;
 				}else{
@@ -140,6 +139,7 @@ public class LoginActivity extends Activity {
 				toast = Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT);
 				toast.show();
 				intent = new Intent(getApplicationContext(), MainActivity.class);
+				intent.putExtra("driver_id", driver_id);
 				startActivity(intent);
 				finish();
 			}else{
