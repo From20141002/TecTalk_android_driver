@@ -63,12 +63,12 @@ public class SigninActivity extends ActionBarActivity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				
-				SaveDriInfo();
+				saveDriInfo();
 			}
 		});
 	}
 
-	private void SaveDriInfo(){
+	private void saveDriInfo(){
 				
 		if(edittxtID_signin.getText().toString().length()!=0){
 			if(edittxtPW_signin.getText().toString().length()!=0){
