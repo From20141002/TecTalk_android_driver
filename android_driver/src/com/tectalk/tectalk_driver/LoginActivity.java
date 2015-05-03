@@ -85,7 +85,8 @@ public class LoginActivity extends Activity {
 				
 				driver_id = edittxtID.getText().toString();
 				driver_pw = edittxtPW.getText().toString();
-				
+				Log.d("aaa","id : " + driver_id);
+				Log.d("aaa","pw : " + driver_pw);
 				new ConnectServer().execute(null,null,null);
 				
 			}else{
@@ -105,25 +106,26 @@ public class LoginActivity extends Activity {
 		
 			HttpClient client = new DefaultHttpClient();
 			List<NameValuePair> values = new ArrayList<NameValuePair>();
+			values.clear();
 			values.add(new BasicNameValuePair("DRIVER_ID", driver_id));
 			values.add(new BasicNameValuePair("DRIVER_PW", driver_pw));
-			
 			HttpParams param = client.getParams();
 			HttpConnectionParams.setConnectionTimeout(param, 5000);
 			HttpConnectionParams.setSoTimeout(param, 5000);
 			
 			try{
-				
-				url = url + "?" + URLEncodedUtils.format(values,"UTF-8");
-				HttpGet httpGet = new HttpGet(url);
+				String _url = url + "?" + URLEncodedUtils.format(values,"UTF-8");
+				HttpGet httpGet = new HttpGet(_url);
 				
 				HttpResponse response = client.execute(httpGet);
 				String _result = EntityUtils.toString(response.getEntity());
+				
 				if(_result.contains("success")){
 					result = true;
 				}else{
 					result = false;
 				}
+
 			}catch(Exception e){
 				Log.d("aaa","error : " + e.toString());
 			}
