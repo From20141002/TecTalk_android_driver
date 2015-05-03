@@ -85,8 +85,6 @@ public class LoginActivity extends Activity {
 				
 				driver_id = edittxtID.getText().toString();
 				driver_pw = edittxtPW.getText().toString();
-				Log.d("aaa","id : " + driver_id);
-				Log.d("aaa","pw : " + driver_pw);
 				new ConnectServer().execute(null,null,null);
 				
 			}else{
