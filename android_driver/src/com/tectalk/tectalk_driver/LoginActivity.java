@@ -46,7 +46,6 @@ public class LoginActivity extends Activity {
 	private Intent intent = null;
 	private Toast toast;
 
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
