@@ -18,11 +18,12 @@
     </ListView>
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/send_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/listViewResult"
         android:layout_alignParentTop="true"
-        android:text="Button" />
+        android:onClick="onClickView"
+        android:text="send" />
 
 </RelativeLayout>

@@ -17,17 +17,23 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Intent;
+import android.media.session.PlaybackState.CustomAction;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.InputFilter.LengthFilter;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
+
+	private DialogActivity mCustomDialog;// m
 
 	private Intent intent;
 	private String driver_id;
@@ -45,13 +51,16 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		Adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.activity_main2);
-//		Adapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_multiple_choice);
+		Adapter = new ArrayAdapter<String>(getApplicationContext(),
+				R.layout.activity_main2);
+		// Adapter = new
+		// ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_multiple_choice);
 
 		listViewResult = (ListView) findViewById(R.id.listViewResult);
-	
+
 		listViewResult.setAdapter(Adapter);
-		
+
+		// choice mode
 		listViewResult.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
 		intent = getIntent();
@@ -60,6 +69,43 @@ public class MainActivity extends ActionBarActivity {
 		new ConnectServer().execute(null, null, null);
 
 	}
+
+	// send_btn
+	public void onClickView(View v) {
+		switch (v.getId()) {
+		case R.id.send_btn:
+			mCustomDialog = new DialogActivity(this, "title", "gogogo",
+					m5ClickListener, m10ClickListener, m15ClickListener);
+			mCustomDialog.show();
+			break;
+		}
+	}
+
+	private View.OnClickListener m5ClickListener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Toast.makeText(getApplicationContext(), "5minute",
+					Toast.LENGTH_SHORT).show();
+		}
+
+	};
+	private View.OnClickListener m10ClickListener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Toast.makeText(getApplicationContext(), "10minute",
+					Toast.LENGTH_SHORT).show();
+		}
+	};
+	private View.OnClickListener m15ClickListener = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			Toast.makeText(getApplicationContext(), "15minute",
+					Toast.LENGTH_SHORT).show();
+		}
+	};
 
 	private class ConnectServer extends AsyncTask<Void, Void, Void> {
 
@@ -83,8 +129,6 @@ public class MainActivity extends ActionBarActivity {
 				HttpResponse response = client.execute(httpGet);
 				result = EntityUtils.toString(response.getEntity());
 
-			
-
 			} catch (Exception e) {
 				Log.d("aaa", "error : " + e.toString());
 			}
@@ -105,14 +149,14 @@ public class MainActivity extends ActionBarActivity {
 				for (int i = 0; i < jArray.length(); i++) {
 					text = "";
 					jObject = jArray.getJSONObject(i);
-//					text += jObject.getString("dri_id");
-					text += jObject.getString("item_info")+" ";
-					text += jObject.getString("cus_id")+" ";
-					text += jObject.getString("item_address")+" ";
-					text += jObject.getString("item_getbyhand")+" ";
+					// text += jObject.getString("dri_id");
+					text += jObject.getString("item_info") + " ";
+					text += jObject.getString("cus_id") + " ";
+					text += jObject.getString("item_address") + " ";
+					text += jObject.getString("item_getbyhand") + " ";
 
 					Adapter.add(text);
-					
+
 					Log.d("bbb", "text : " + text);
 				}
 
