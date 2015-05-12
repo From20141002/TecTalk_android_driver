@@ -85,7 +85,7 @@ public class MainActivity extends ActionBarActivity {
 
 		@Override
 		public void onClick(View v) {
-			Toast.makeText(getApplicationContext(), "5minute",
+			Toast.makeText(getApplicationContext(), "15minute",
 					Toast.LENGTH_SHORT).show();
 		}
 
@@ -94,7 +94,7 @@ public class MainActivity extends ActionBarActivity {
 
 		@Override
 		public void onClick(View v) {
-			Toast.makeText(getApplicationContext(), "10minute",
+			Toast.makeText(getApplicationContext(), "30minute",
 					Toast.LENGTH_SHORT).show();
 		}
 	};
@@ -102,7 +102,7 @@ public class MainActivity extends ActionBarActivity {
 
 		@Override
 		public void onClick(View v) {
-			Toast.makeText(getApplicationContext(), "15minute",
+			Toast.makeText(getApplicationContext(), "60minute",
 					Toast.LENGTH_SHORT).show();
 		}
 	};

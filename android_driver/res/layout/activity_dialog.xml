@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="300dip"
+        android:layout_height="400dip"
+        android:background="@android:color/darker_gray"
+        android:orientation="vertical" >
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp" >
+        </ListView>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/btn_15minute"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="15 minute" />
+
+            <Button
+                android:id="@+id/btn_30minute"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="30 minute" />
+
+            <Button
+                android:id="@+id/btn_60minute"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="60 minute" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
