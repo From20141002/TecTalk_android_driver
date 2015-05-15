@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/listViewResult"
         android:layout_alignParentTop="true"
-        android:onClick="onClickView"
-        android:text="send" />
+        android:text="send"
+        android:onClick="onClickView"  />
 
 </RelativeLayout>

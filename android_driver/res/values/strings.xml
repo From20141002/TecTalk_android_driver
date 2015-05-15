@@ -7,5 +7,6 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_signin">SigninActivity</string>
     <string name="title_activity_dialog">DialogActivity</string>
+    <string name="title_activity_clickview">ClickviewActivity</string>
 
 </resources>

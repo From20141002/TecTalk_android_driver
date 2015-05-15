@@ -458,7 +458,6 @@ int id image 0x7f090028
 int id listMode 0x7f09000a
 int id listViewResult 0x7f090058
 int id list_item 0x7f09002a
-int id listview 0x7f09004f
 int id middle 0x7f090022
 int id multiply 0x7f090014
 int id never 0x7f09001c
@@ -480,6 +479,7 @@ int id search_mag_icon 0x7f090047
 int id search_plate 0x7f090048
 int id search_src_text 0x7f090049
 int id search_voice_btn 0x7f09004d
+int id selectViewResult 0x7f09004f
 int id select_dialog_listview 0x7f09004e
 int id send_btn 0x7f090059
 int id shortcut 0x7f090039
@@ -532,8 +532,8 @@ int layout abc_simple_dropdown_hint 0x7f030018
 int layout activity_dialog 0x7f030019
 int layout activity_login 0x7f03001a
 int layout activity_main 0x7f03001b
-int layout activity_main2 0x7f03001c
-int layout activity_signin 0x7f03001d
+int layout activity_signin 0x7f03001c
+int layout checkedtextview 0x7f03001d
 int layout select_dialog_item_material 0x7f03001e
 int layout select_dialog_multichoice_material 0x7f03001f
 int layout select_dialog_singlechoice_material 0x7f030020
@@ -561,6 +561,7 @@ int string abc_toolbar_collapse_description 0x7f0a0004
 int string action_settings 0x7f0a0013
 int string app_name 0x7f0a0011
 int string hello_world 0x7f0a0012
+int string title_activity_clickview 0x7f0a0017
 int string title_activity_dialog 0x7f0a0016
 int string title_activity_login 0x7f0a0014
 int string title_activity_signin 0x7f0a0015

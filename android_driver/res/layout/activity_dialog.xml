@@ -11,11 +11,15 @@
         android:background="@android:color/darker_gray"
         android:orientation="vertical" >
 
-        <ListView
-            android:id="@+id/listview"
-            android:layout_width="wrap_content"
-            android:layout_height="150dp" >
-        </ListView>
+        <TextView
+            android:id="@+id/selectViewResult"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000000"
+            android:text="" >
+         
+        </TextView>
 
         <LinearLayout
             android:layout_width="fill_parent"
