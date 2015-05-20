@@ -106,7 +106,7 @@ public class MainActivity extends ActionBarActivity {
 		case R.id.send_btn:
 		intent_item = new Intent(getApplicationContext(),
 					DialogActivity.class);
-			intent_item.putExtra("driId", driver_id);
+			intent_item.putExtra("driver_id", driver_id);
 			intent_item.putExtra("item_info",select_item_list);
 			intent_item.putExtra("cus_info",select_cus_list);
 			startActivity(intent_item);

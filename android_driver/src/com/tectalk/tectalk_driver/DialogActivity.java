@@ -115,12 +115,9 @@ public class DialogActivity extends ActionBarActivity {
 	};
 	
 	public void pushToCus(String time){
-//		ConnectServer con= new ConnectServer();
-//		con.execute(time, cusId , phoneId, itemInfo);
 		if (select_item_list != null) {
 			for (int i = 0; i < select_item_list.size(); i++) {
-				ConnectServer.execute(time, select_cus_list.get(i), driId, select_item_list.get(i));
-				//new ConnectServer.excute(time, select_cus_list.get(i), driId, select_item_list.get(i));
+				new ConnectServer().execute(time, select_cus_list.get(i), driId, select_item_list.get(i));
 			}
 		} 
 	}
