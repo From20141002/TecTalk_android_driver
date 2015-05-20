@@ -8,5 +8,8 @@
     <string name="title_activity_signin">SigninActivity</string>
     <string name="title_activity_dialog">DialogActivity</string>
     <string name="title_activity_clickview">ClickviewActivity</string>
+    <string name="title_activity_gcmintent_service">GCMIntentService</string>
+    <string name="title_activity_notification">NotificationActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

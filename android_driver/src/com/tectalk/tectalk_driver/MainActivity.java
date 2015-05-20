@@ -19,6 +19,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.android.gcm.GCMRegistrar;
+
 import android.content.Context;
 import android.content.Intent;
 import android.media.session.PlaybackState.CustomAction;
@@ -35,8 +37,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -44,6 +49,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
+
+	// gcm
+	public static Context mContext = null; // ?
+	// 푸쉬를 받기/받지 않기를 설정하기 위한 체크박스
+	public CheckBox cb_setting = null;
+	public static String PROJECT_ID = "619658958148";
+	private String phoneDri;
+	public Toast toast;
 
 	private DialogActivity mCustomDialog;// m
 
@@ -71,6 +84,42 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
+		// gcm
+		mContext = this;
+		phoneDri = GCMRegistrar.getRegistrationId(mContext);
+		cb_setting = (CheckBox) findViewById(R.id.gcmBox);
+		cb_setting.setChecked(!GCMRegistrar.getRegistrationId(mContext).equals(
+				""));
+		cb_setting.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				// TODO Auto-generated method stub
+				if (isChecked) {
+
+					Log.d("test", "푸쉬 메시지를 받습니다.");
+
+					GCMRegistrar.checkDevice(mContext);
+					GCMRegistrar.checkManifest(mContext);
+
+					if (GCMRegistrar.getRegistrationId(mContext).equals("")) {
+						GCMRegistrar.register(mContext, PROJECT_ID);
+						Log.d("test", "id할당 : ");
+					}
+				}
+				// 푸쉬 받지않기
+				else {
+					toast = Toast.makeText(getApplicationContext(),
+							"푸쉬 메시지를 받지 않습니다.", Toast.LENGTH_SHORT);
+					toast.show();
+					GCMRegistrar.unregister(mContext);
+				}
+
+			}
+
+		});
 
 		Adapter = new ArrayAdapter<String>(getApplicationContext(),
 				R.layout.checkedtextview);
@@ -104,11 +153,11 @@ public class MainActivity extends ActionBarActivity {
 	public void onClickView(View v) {
 		switch (v.getId()) {
 		case R.id.send_btn:
-		intent_item = new Intent(getApplicationContext(),
+			intent_item = new Intent(getApplicationContext(),
 					DialogActivity.class);
 			intent_item.putExtra("driver_id", driver_id);
-			intent_item.putExtra("item_info",select_item_list);
-			intent_item.putExtra("cus_info",select_cus_list);
+			intent_item.putExtra("item_info", select_item_list);
+			intent_item.putExtra("cus_info", select_cus_list);
 			startActivity(intent_item);
 			break;
 		}
@@ -127,7 +176,7 @@ public class MainActivity extends ActionBarActivity {
 			HttpParams param = client.getParams();
 			HttpConnectionParams.setConnectionTimeout(param, 5000);
 			HttpConnectionParams.setSoTimeout(param, 5000);
- 
+
 			try {
 
 				url = url + "?" + URLEncodedUtils.format(values, "UTF-8");
@@ -175,7 +224,7 @@ public class MainActivity extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.main2, menu); // main or main2?
 		return true;
 	}
 

@@ -43,7 +43,7 @@ public class DialogActivity extends ActionBarActivity {
 
 	private String driId; 
 	private boolean result = false;
-	private final String url = "http://182.162.90.100/TecTalk/GetPhoneCus";
+	private final String url = "http://182.162.90.100/TecTalk/GetPhoneId";
 	private TextView selectViewResult;
 	private ArrayList<String> select_item_list = new ArrayList<String>();
 	private ArrayList<String> select_cus_list = new ArrayList<String>();

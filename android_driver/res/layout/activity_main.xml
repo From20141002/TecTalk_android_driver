@@ -26,4 +26,12 @@
         android:text="send"
         android:onClick="onClickView"  />
 
+    <CheckBox
+        android:id="@+id/gcmBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/listViewResult"
+        android:text="푸쉬 받기 설정" />
+
 </RelativeLayout>
