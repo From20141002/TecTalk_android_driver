@@ -129,10 +129,10 @@ public class DialogActivity extends ActionBarActivity {
 			
 			HttpClient client = new DefaultHttpClient();
 			List<NameValuePair> values = new ArrayList<NameValuePair>();
-			values.add(new BasicNameValuePair("msg", params[0]));
-			values.add(new BasicNameValuePair("cusId", params[1]));
-			values.add(new BasicNameValuePair("driId", params[2]));
-			values.add(new BasicNameValuePair("itemInfo", params[3]));
+			values.add(new BasicNameValuePair("MSG", params[0]));
+			values.add(new BasicNameValuePair("CUSID", params[1]));
+			values.add(new BasicNameValuePair("DRIID", params[2]));
+			values.add(new BasicNameValuePair("ITEMINFO", params[3]));
 			
 			Log.d("test" , "push : " + params[0] + params[1] + params[2] +params[3]);
 			
@@ -148,6 +148,7 @@ public class DialogActivity extends ActionBarActivity {
 				httpPost.setEntity(entity);
 				HttpResponse response = client.execute(httpPost);
 				String _result = EntityUtils.toString(response.getEntity());
+				Log.d("test","result : :  " + _result);
 				if(_result.contains("success")){
 					result = true;
 				} else result = false;

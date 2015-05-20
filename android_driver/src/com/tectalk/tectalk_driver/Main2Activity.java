@@ -50,7 +50,7 @@ public class Main2Activity extends Activity {
 		btnIdSend = (Button) findViewById(R.id.btnIdSend);
 		editId = (EditText)findViewById(R.id.editId);
 		intent = getIntent();
-		phoneId = intent.getExtras().getString("phone_id");
+		phoneId = intent.getExtras().getString("phone_Id");
 		
 		clickIdSave = new OnClickListener() {
 			
