@@ -122,7 +122,7 @@ public class DialogActivity extends ActionBarActivity {
 				ConnectServer.execute(time, select_cus_list.get(i), driId, select_item_list.get(i));
 				//new ConnectServer.excute(time, select_cus_list.get(i), driId, select_item_list.get(i));
 			}
-		}
+		} 
 	}
 
 	private class ConnectServer extends AsyncTask<String, Void, Void>{

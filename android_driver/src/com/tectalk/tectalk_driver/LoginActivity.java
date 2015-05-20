@@ -37,7 +37,7 @@ public class LoginActivity extends Activity {
 	private Button btnLogin;
 	private Button btnSignin;
 	
-	private String driver_id;
+	private String driver_id; 
 	private String driver_pw;
 	
 	private String url = "http://182.162.90.100/TecTalk/LoginDri";

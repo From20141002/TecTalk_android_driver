@@ -127,7 +127,7 @@ public class MainActivity extends ActionBarActivity {
 			HttpParams param = client.getParams();
 			HttpConnectionParams.setConnectionTimeout(param, 5000);
 			HttpConnectionParams.setSoTimeout(param, 5000);
-
+ 
 			try {
 
 				url = url + "?" + URLEncodedUtils.format(values, "UTF-8");

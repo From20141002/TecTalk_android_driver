@@ -79,7 +79,7 @@ public class SigninActivity extends ActionBarActivity {
 							driver_id = edittxtID_signin.getText().toString();
 							driver_pw = edittxtPW_signin.getText().toString();
 							driver_name = edittxtName_signin.getText().toString();
-							driver_phone = edittxtPhone_signin.getText().toString();
+					 		driver_phone = edittxtPhone_signin.getText().toString();
 							driver_company = edittxtCompany_signin.getText().toString();
 							
 							new ConnectServer().execute(null,null,null);
