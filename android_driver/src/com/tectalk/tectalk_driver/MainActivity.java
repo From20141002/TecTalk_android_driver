@@ -56,12 +56,14 @@ public class MainActivity extends ActionBarActivity {
 	private JSONObject jObject;
 
 	private ListView listViewResult;
-	// private ListView selectViewResult;
 	private String text;
 
 	private ArrayAdapter<String> Adapter;
 
-	private ArrayList<String> select_list = new ArrayList<String>();// m
+	private ArrayList<String> item_list = new ArrayList<String>();//
+	private ArrayList<String> select_item_list = new ArrayList<String>();//
+	private ArrayList<String> select_cus_list = new ArrayList<String>();//
+	private ArrayList<String> cus_list = new ArrayList<String>();//
 
 	// private ArrayAdapter<String> Adapter_select_list;// m
 
@@ -77,16 +79,6 @@ public class MainActivity extends ActionBarActivity {
 		listViewResult.setAdapter(Adapter);
 		listViewResult.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		listViewResult.setOnItemClickListener(onClickListItem);
-
-		// LayoutInflater inflater =
-		// (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		// inflater.inflate(R.layout.inflated_test_layout,selectViewResult);
-		// final View layout =
-		// LayoutInflater(this.get.Parent().inflate(R.layout.activity_main));
-		// selectViewResult =
-		// (ListView)layout.findViewById(R.id.selectViewResult);// m
-		// selectViewResult.setAdapter(Adapter_select_list);// m
-
 		intent = getIntent();
 		driver_id = intent.getExtras().getString("driver_id");
 
@@ -102,12 +94,8 @@ public class MainActivity extends ActionBarActivity {
 			// TODO Auto-generated method stub
 			Toast.makeText(getApplicationContext(), Adapter.getItem(position),
 					Toast.LENGTH_SHORT).show();
-
-			// select_list.add(position, "item_info");
-//			intent_item.putExtra("item_info", select_list.get(position));
-
-			// Adapter_select_list.getItem(position);
-
+			select_item_list.add(item_list.get(position));
+			select_cus_list.add(cus_list.get(position));
 		}
 	};
 
@@ -116,24 +104,15 @@ public class MainActivity extends ActionBarActivity {
 	public void onClickView(View v) {
 		switch (v.getId()) {
 		case R.id.send_btn:
-			// mCustomDialog = new DialogActivity(this, "title", "gogogo",
-			// m15ClickListener, m30ClickListener, m60ClickListener);
-			intent_item = new Intent(getApplicationContext(),
+		intent_item = new Intent(getApplicationContext(),
 					DialogActivity.class);
-			// intent_item.putExtra("list", select_)
+			intent_item.putExtra("driId", driver_id);
+			intent_item.putExtra("item_info",select_item_list);
+			intent_item.putExtra("cus_info",select_cus_list);
 			startActivity(intent_item);
-			// mCustomDialog.show();
-
 			break;
 		}
 	}
-
-	/*
-	 * public void onClickView(View v) { switch (v.getId()) { case
-	 * R.id.send_btn: mCustomDialog = new DialogActivity(this, "title",
-	 * "gogogo", m15ClickListener, m30ClickListener, m60ClickListener);
-	 * mCustomDialog.show(); break; }
-	 */
 
 	private class ConnectServer extends AsyncTask<Void, Void, Void> {
 
@@ -182,8 +161,8 @@ public class MainActivity extends ActionBarActivity {
 					text += jObject.getString("item_getbyhand") + " ";
 
 					Adapter.add(text);
-					select_list.add(jObject.getString("item_info"));
-
+					item_list.add(jObject.getString("item_info"));
+					cus_list.add(jObject.getString("cus_id"));
 					Log.d("bbb", "text : " + text);
 				}
 
