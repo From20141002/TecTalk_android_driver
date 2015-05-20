@@ -103,11 +103,8 @@ public class MainActivity extends ActionBarActivity {
 			Toast.makeText(getApplicationContext(), Adapter.getItem(position),
 					Toast.LENGTH_SHORT).show();
 
-			intent_item = new Intent(getApplicationContext(),
-					DialogActivity.class);
-
-			intent_item.putExtra("item_info", select_list.get(position));
 			// select_list.add(position, "item_info");
+//			intent_item.putExtra("item_info", select_list.get(position));
 
 			// Adapter_select_list.getItem(position);
 
@@ -119,9 +116,14 @@ public class MainActivity extends ActionBarActivity {
 	public void onClickView(View v) {
 		switch (v.getId()) {
 		case R.id.send_btn:
-			mCustomDialog = new DialogActivity(this, getIntent().getStringExtra("item_info"), "gogogo",
-					m15ClickListener, m30ClickListener, m60ClickListener);
-			mCustomDialog.show();
+			// mCustomDialog = new DialogActivity(this, "title", "gogogo",
+			// m15ClickListener, m30ClickListener, m60ClickListener);
+			intent_item = new Intent(getApplicationContext(),
+					DialogActivity.class);
+			// intent_item.putExtra("list", select_)
+			startActivity(intent_item);
+			// mCustomDialog.show();
+
 			break;
 		}
 	}
@@ -132,35 +134,6 @@ public class MainActivity extends ActionBarActivity {
 	 * "gogogo", m15ClickListener, m30ClickListener, m60ClickListener);
 	 * mCustomDialog.show(); break; }
 	 */
-
-	private View.OnClickListener m15ClickListener = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			Toast.makeText(getApplicationContext(), "15minute",
-					Toast.LENGTH_SHORT).show();
-			mCustomDialog.dismiss(); // exit dialog
-		}
-
-	};
-	private View.OnClickListener m30ClickListener = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			Toast.makeText(getApplicationContext(), "30minute",
-					Toast.LENGTH_SHORT).show();
-			mCustomDialog.dismiss();
-		}
-	};
-	private View.OnClickListener m60ClickListener = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			Toast.makeText(getApplicationContext(), "60minute",
-					Toast.LENGTH_SHORT).show();
-			mCustomDialog.dismiss();
-		}
-	};
 
 	private class ConnectServer extends AsyncTask<Void, Void, Void> {
 
