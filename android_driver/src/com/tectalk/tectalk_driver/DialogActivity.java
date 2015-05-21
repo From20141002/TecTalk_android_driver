@@ -148,7 +148,6 @@ public class DialogActivity extends ActionBarActivity {
 				httpPost.setEntity(entity);
 				HttpResponse response = client.execute(httpPost);
 				String _result = EntityUtils.toString(response.getEntity());
-				Log.d("test","result : :  " + _result);
 				if(_result.contains("success")){
 					result = true;
 				} else result = false;
