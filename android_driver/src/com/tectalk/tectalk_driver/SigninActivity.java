@@ -114,11 +114,11 @@ public class SigninActivity extends ActionBarActivity {
 		
 			HttpClient client = new DefaultHttpClient();
 			List<NameValuePair> values = new ArrayList<NameValuePair>();
-			values.add(new BasicNameValuePair("DRIVER_ID", driver_id));
-			values.add(new BasicNameValuePair("DRIVER_PW", driver_pw));
-			values.add(new BasicNameValuePair("DRIVER_NAME", driver_name));
-			values.add(new BasicNameValuePair("DRIVER_PHONE", driver_phone));
-			values.add(new BasicNameValuePair("DRIVER_COMPANY", driver_company));
+			values.add(new BasicNameValuePair("DRIID", driver_id));
+			values.add(new BasicNameValuePair("DRIPW", driver_pw));
+			values.add(new BasicNameValuePair("DRINAME", driver_name));
+			values.add(new BasicNameValuePair("DRIPHONE", driver_phone));
+			values.add(new BasicNameValuePair("DRICOMPANY", driver_company));
 			
 			HttpParams param = client.getParams();
 			HttpConnectionParams.setConnectionTimeout(param, 5000);

@@ -104,8 +104,8 @@ public class LoginActivity extends Activity {
 			HttpClient client = new DefaultHttpClient();
 			List<NameValuePair> values = new ArrayList<NameValuePair>();
 			values.clear();
-			values.add(new BasicNameValuePair("DRIVER_ID", driver_id));
-			values.add(new BasicNameValuePair("DRIVER_PW", driver_pw));
+			values.add(new BasicNameValuePair("DRIID", driver_id));
+			values.add(new BasicNameValuePair("DRIPW", driver_pw));
 			HttpParams param = client.getParams();
 			HttpConnectionParams.setConnectionTimeout(param, 5000);
 			HttpConnectionParams.setSoTimeout(param, 5000);
@@ -138,7 +138,7 @@ public class LoginActivity extends Activity {
 				toast = Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT);
 				toast.show();
 				intent = new Intent(getApplicationContext(), MainActivity.class);
-				intent.putExtra("driver_id", driver_id);
+				intent.putExtra("DRIID", driver_id);
 				startActivity(intent);
 				finish();
 			}else{

@@ -73,7 +73,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		Intent intent = new Intent(context, Main2Activity.class);
 		
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.putExtra("phone_Id", phoneId);// m
+		intent.putExtra("PHONDID", phoneId);// m
 		context.startActivity(intent);// m
 
 	}

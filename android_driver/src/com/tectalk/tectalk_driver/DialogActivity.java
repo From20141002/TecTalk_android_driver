@@ -15,17 +15,11 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.media.session.PlaybackState.CustomAction;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -34,20 +28,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DialogActivity extends ActionBarActivity {
-
-	Intent intent;
-
+	
 	private Button m15Button;
 	private Button m30Button;
 	private Button m60Button;
+	private TextView txtviewSelect;
 
 	private String driId; 
-	private boolean result = false;
 	private final String url = "http://182.162.90.100/TecTalk/GetPhoneId";
-	private TextView selectViewResult;
-	private ArrayList<String> select_item_list = new ArrayList<String>();
-	private ArrayList<String> select_cus_list = new ArrayList<String>();
+	private ArrayList<String> selectItemList = new ArrayList<String>();
+	private ArrayList<String> selectCusList = new ArrayList<String>();
 
+	private Intent intent;
+	private boolean result = false;
+
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,19 +61,21 @@ public class DialogActivity extends ActionBarActivity {
 		m15Button.setOnClickListener(m15ClickListener);
 		m30Button.setOnClickListener(m30ClickListener);
 		m60Button.setOnClickListener(m60ClickListener);
-		selectViewResult = (TextView) findViewById(R.id.selectViewResult);
+		txtviewSelect = (TextView) findViewById(R.id.txtviewSelect);
 
 		intent = getIntent();
-		select_item_list = intent.getExtras().getStringArrayList("item_info");
-		select_cus_list = intent.getExtras().getStringArrayList("cus_info");
-		driId = intent.getExtras().getString("driver_id");
+		selectItemList = intent.getExtras().getStringArrayList("ITEMINFO");
+		selectCusList = intent.getExtras().getStringArrayList("CUSINFO");
+		driId = intent.getExtras().getString("DRIID");
 		String result = "result : ";
-		if (select_item_list != null) {
-			for (int i = 0; i < select_item_list.size(); i++) {
-				result += select_item_list.get(i);
-				result += select_cus_list.get(i) + "\n";
+		
+		
+		if (selectItemList != null) {
+			for (int i = 0; i < selectItemList.size(); i++) {
+				result += selectItemList.get(i);
+				result += selectCusList.get(i) + "\n";
 			}
-			selectViewResult.setText(result);
+			txtviewSelect.setText(result);
 		}else{
 			Log.d("test", "null error");
 		}
@@ -115,9 +112,9 @@ public class DialogActivity extends ActionBarActivity {
 	};
 	
 	public void pushToCus(String time){
-		if (select_item_list != null) {
-			for (int i = 0; i < select_item_list.size(); i++) {
-				new ConnectServer().execute(time, select_cus_list.get(i), driId, select_item_list.get(i));
+		if (selectItemList != null) {
+			for (int i = 0; i < selectItemList.size(); i++) {
+				new ConnectServer().execute(time, selectCusList.get(i), driId, selectItemList.get(i));
 			}
 		} 
 	}
@@ -129,7 +126,7 @@ public class DialogActivity extends ActionBarActivity {
 			
 			HttpClient client = new DefaultHttpClient();
 			List<NameValuePair> values = new ArrayList<NameValuePair>();
-			values.add(new BasicNameValuePair("MSG", params[0]));
+			values.add(new BasicNameValuePair("TIME", params[0]));
 			values.add(new BasicNameValuePair("CUSID", params[1]));
 			values.add(new BasicNameValuePair("DRIID", params[2]));
 			values.add(new BasicNameValuePair("ITEMINFO", params[3]));
@@ -155,20 +152,6 @@ public class DialogActivity extends ActionBarActivity {
 				Log.d("aaa","error : " + e.toString());
 				
 			} return null;
-		}
-		
-		@Override
-		protected void onPostExecute(Void res){
-			super.onPostExecute(res);
-			Toast toast;
-			if(result){
-				toast = Toast.makeText(getApplicationContext(), "Id 등록 성공", Toast.LENGTH_SHORT);
-				toast.show();
-				finish();
-			} else{
-				toast = Toast.makeText(getApplicationContext(), "아이디가 이미 있습니다.", Toast.LENGTH_SHORT);
-				toast.show();
-			}
 		}
 	}
 

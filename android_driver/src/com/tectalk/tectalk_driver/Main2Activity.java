@@ -50,7 +50,7 @@ public class Main2Activity extends Activity {
 		btnIdSend = (Button) findViewById(R.id.btnIdSend);
 		editId = (EditText)findViewById(R.id.editId);
 		intent = getIntent();
-		phoneId = intent.getExtras().getString("phone_Id");
+		phoneId = intent.getExtras().getString("PHONEID");
 		
 		clickIdSave = new OnClickListener() {
 			
@@ -85,8 +85,8 @@ public class Main2Activity extends Activity {
 			
 			HttpClient client = new DefaultHttpClient();
 			List<NameValuePair> values = new ArrayList<NameValuePair>();
-			values.add(new BasicNameValuePair("DRI_ID", driId));
-			values.add(new BasicNameValuePair("PHONE_ID", phoneId));
+			values.add(new BasicNameValuePair("DRIID", driId));
+			values.add(new BasicNameValuePair("PHONEID", phoneId));
 
 			
 			HttpParams param = client.getParams();

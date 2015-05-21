@@ -129,7 +129,7 @@ public class MainActivity extends ActionBarActivity {
 		listViewResult.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		listViewResult.setOnItemClickListener(onClickListItem);
 		intent = getIntent();
-		driver_id = intent.getExtras().getString("driver_id");
+		driver_id = intent.getExtras().getString("DRIID");
 
 		new ConnectServer().execute(null, null, null);
 
@@ -155,9 +155,9 @@ public class MainActivity extends ActionBarActivity {
 		case R.id.send_btn:
 			intent_item = new Intent(getApplicationContext(),
 					DialogActivity.class);
-			intent_item.putExtra("driver_id", driver_id);
-			intent_item.putExtra("item_info", select_item_list);
-			intent_item.putExtra("cus_info", select_cus_list);
+			intent_item.putExtra("DRIID", driver_id);
+			intent_item.putExtra("ITEMINFO", select_item_list);
+			intent_item.putExtra("CUSINFO", select_cus_list);
 			startActivity(intent_item);
 			break;
 		}
@@ -171,7 +171,7 @@ public class MainActivity extends ActionBarActivity {
 
 			HttpClient client = new DefaultHttpClient();
 			List<NameValuePair> values = new ArrayList<NameValuePair>();
-			values.add(new BasicNameValuePair("DRIVER_ID", driver_id));
+			values.add(new BasicNameValuePair("DRIID", driver_id));
 
 			HttpParams param = client.getParams();
 			HttpConnectionParams.setConnectionTimeout(param, 5000);
@@ -204,14 +204,14 @@ public class MainActivity extends ActionBarActivity {
 					text = "";
 					jObject = jArray.getJSONObject(i);
 					// text += jObject.getString("dri_id");
-					text += jObject.getString("item_info") + " ";
-					text += jObject.getString("cus_id") + " ";
-					text += jObject.getString("item_address") + " ";
-					text += jObject.getString("item_getbyhand") + " ";
+					text += jObject.getString("ITEMINFO") + " ";
+					text += jObject.getString("CUSID") + " ";
+					text += jObject.getString("ADDRESS") + " ";
+					text += jObject.getString("GETBYHAND") + " ";
 
 					Adapter.add(text);
-					item_list.add(jObject.getString("item_info"));
-					cus_list.add(jObject.getString("cus_id"));
+					item_list.add(jObject.getString("ITEMINFO"));
+					cus_list.add(jObject.getString("CUSID"));
 					Log.d("bbb", "text : " + text);
 				}
 
