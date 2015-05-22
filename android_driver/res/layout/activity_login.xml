@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:ems="10"
-        android:text="ID" >
+         >
 
     </EditText>
 
@@ -31,7 +31,7 @@
         android:layout_below="@+id/edittxtID"
         android:ems="10"
         android:inputType="textPassword"
-        android:text="PW" />
+         />
 
     <Button
         android:id="@+id/btnSignin"
@@ -46,5 +46,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnSignin"
         android:text="Login" />
+
+    <CheckBox
+        android:id="@+id/cbAutologin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/btnLogin"
+        android:layout_alignRight="@+id/edittxtID"
+        android:layout_marginBottom="30dp"
+        android:text="자동로그인" />
 
 </RelativeLayout>

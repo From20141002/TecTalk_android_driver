@@ -18,13 +18,13 @@
     </ListView>
  
     <Button
-        android:id="@+id/send_btn"
+        android:id="@+id/btnSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/listViewResult"
         android:layout_alignParentTop="true"
-        android:text="send"
-        android:onClick="onClickView"  />
+        android:onClick="onClickView"
+        android:text="send" />
 
     <CheckBox
         android:id="@+id/gcmBox"
@@ -33,5 +33,13 @@
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/listViewResult"
         android:text="푸쉬 받기 설정" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/btnSend"
+        android:text="자동로그인해제" />
 
 </RelativeLayout>

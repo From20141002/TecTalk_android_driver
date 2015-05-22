@@ -19,6 +19,7 @@ import org.apache.http.util.EntityUtils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Checkable;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -45,12 +50,27 @@ public class LoginActivity extends Activity {
 	
 	private Intent intent = null;
 	private Toast toast;
+	//아래부터 자동로그인기능에 필요한것들
+	public CheckBox cb_autologin = null;
+	SharedPreferences setting;
+	SharedPreferences.Editor editor;
+	private boolean autoLogin = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
+		setting = getSharedPreferences("setting", 0);
+		editor = setting.edit();
+		
+		
+		if(setting.contains("ID")){
+			intent = new Intent(getApplicationContext(), MainActivity.class);
+			intent.putExtra("DRIID", setting.getString("ID", "NULL"));
+			startActivity(intent);
+			finish();
+		}
 		edittxtID = (EditText)findViewById(R.id.edittxtID);
 		edittxtPW = (EditText)findViewById(R.id.edittxtPW);
 		btnLogin = (Button)findViewById(R.id.btnLogin);
@@ -58,8 +78,29 @@ public class LoginActivity extends Activity {
 		
 		btnLogin.setOnClickListener(mClickListener);
 		btnSignin.setOnClickListener(mClickListener);
+		//자동로그인 기능 추가
+		
+		
+		cb_autologin =(CheckBox)findViewById(R.id.cbAutologin);
+	
+		cb_autologin.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				// TODO Auto-generated method stub
+
+				if(isChecked){
+					autoLogin = true;
+					
+				}else{
+					autoLogin = false;
+				}
 				
+			}
+		});
 	}
+	
 	
 	private OnClickListener mClickListener = new OnClickListener() {
 		
@@ -137,6 +178,15 @@ public class LoginActivity extends Activity {
 			if(result){
 				toast = Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT);
 				toast.show();
+				if(autoLogin){
+					driver_id = edittxtID.getText().toString();
+					driver_pw = edittxtPW.getText().toString();
+					
+					editor.putString("ID", driver_id);
+					editor.putString("PW", driver_pw);
+					editor.putBoolean("Auto_Login_enabled", true);//왜넣지
+					editor.commit();
+				}
 				intent = new Intent(getApplicationContext(), MainActivity.class);
 				intent.putExtra("DRIID", driver_id);
 				startActivity(intent);

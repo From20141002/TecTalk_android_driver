@@ -26,6 +26,7 @@ import com.google.android.gcm.GCMRegistrar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.session.PlaybackState.CustomAction;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -61,6 +62,8 @@ public class MainActivity extends ActionBarActivity {
 	public static String PROJECT_ID = "619658958148";
 	private String phoneDri;
 	public Toast toast;
+	private Button btnCancel;
+	private Button btnSend;
 
 	private DialogActivity mCustomDialog;// m
 
@@ -85,6 +88,8 @@ public class MainActivity extends ActionBarActivity {
 	private ArrayList<String> cus_list = new ArrayList<String>();//
 	private ArrayList<Integer> select_list = new ArrayList<Integer>();//
 
+	SharedPreferences setting;
+	SharedPreferences.Editor editor;
 	// private ArrayAdapter<String> Adapter_select_list;// m
 
 	@Override
@@ -95,6 +100,12 @@ public class MainActivity extends ActionBarActivity {
 		// gcm
 		mContext = this;
 		phoneDri = GCMRegistrar.getRegistrationId(mContext);
+		btnCancel = (Button)findViewById(R.id.btnCancel);
+		btnSend = (Button)findViewById(R.id.btnSend);
+		btnCancel.setOnClickListener(mClickListener);
+		btnCancel.setOnClickListener(mClickListener);
+		setting = getSharedPreferences("setting", 0);
+		editor = setting.edit();
 		cb_setting = (CheckBox) findViewById(R.id.gcmBox);
 		cb_setting.setChecked(!GCMRegistrar.getRegistrationId(mContext).equals(
 				""));
@@ -122,7 +133,7 @@ public class MainActivity extends ActionBarActivity {
 							"푸쉬 메시지를 받지 않습니다.", Toast.LENGTH_SHORT);
 					toast.show();
 					GCMRegistrar.unregister(mContext);
-					new ConnectServer1().execute(null, null, null);
+					new ConnectServer_DeletePhoneId().execute(null, null, null);
 
 				}
 
@@ -171,35 +182,44 @@ public class MainActivity extends ActionBarActivity {
 
 	};
 
-	// send_btn
-
-	public void onClickView(View v) {
-		switch (v.getId()) {
-		case R.id.send_btn:
-			select_cus_list.clear();
-			select_item_list.clear();
-			for(int i=0; i<select_list.size(); i++){
-				int index;
-				index = select_list.get(i);
-				select_cus_list.add(cus_list.get(index));
-				select_item_list.add(item_list.get(index));
+	
+	private OnClickListener mClickListener = new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.btnSend:
+				select_cus_list.clear();
+				select_item_list.clear();
+				for(int i=0; i<select_list.size(); i++){
+					int index;
+					index = select_list.get(i);
+					select_cus_list.add(cus_list.get(index));
+					select_item_list.add(item_list.get(index));
+				}
+				intent_item = new Intent(getApplicationContext(),
+						DialogActivity.class);
+				intent_item.putExtra("DRIID", driver_id);
+				intent_item.putExtra("ITEMINFO", select_item_list);
+				intent_item.putExtra("CUSINFO", select_cus_list);
+				startActivity(intent_item);
+				break;
+				
+			case R.id.btnCancel:
+				editor.clear();
+				editor.commit();
 			}
-			intent_item = new Intent(getApplicationContext(),
-					DialogActivity.class);
-			intent_item.putExtra("DRIID", driver_id);
-			intent_item.putExtra("ITEMINFO", select_item_list);
-			intent_item.putExtra("CUSINFO", select_cus_list);
-			startActivity(intent_item);
-			break;
+			// TODO Auto-generated method stub
+			
 		}
-	}
+	};
 
 	private class ConnectServer extends AsyncTask<Void, Void, Void> {
 
 		@Override
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-
+ 
 			HttpClient client = new DefaultHttpClient();
 			List<NameValuePair> values = new ArrayList<NameValuePair>();
 			values.add(new BasicNameValuePair("DRIID", driver_id));
@@ -252,7 +272,7 @@ public class MainActivity extends ActionBarActivity {
 		}
 	}
 
-	private class ConnectServer1 extends AsyncTask<Void, Void, Void> {
+	private class ConnectServer_DeletePhoneId extends AsyncTask<Void, Void, Void> {
 
 		@Override
 		protected Void doInBackground(Void... params) {
