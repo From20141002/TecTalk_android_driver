@@ -1,6 +1,7 @@
 package com.tectalk.tectalk_driver;
 
 import java.net.Proxy.Type;
+import java.net.URI;
 import java.security.PolicySpi;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,9 @@ import java.util.zip.Inflater;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
@@ -37,6 +40,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -64,7 +68,9 @@ public class MainActivity extends ActionBarActivity {
 	private Intent intent_item;
 	private String driver_id;
 	private String url = "http://182.162.90.100/TecTalk/GetItemInfo";
+	private String url_DeletePhoneId = "http://182.162.90.100/TecTalk/DeletePhoneId";
 	private String result;
+	private boolean result_DeletePhoneId;
 	private JSONArray jArray;
 	private JSONObject jObject;
 
@@ -115,6 +121,8 @@ public class MainActivity extends ActionBarActivity {
 							"푸쉬 메시지를 받지 않습니다.", Toast.LENGTH_SHORT);
 					toast.show();
 					GCMRegistrar.unregister(mContext);
+					new ConnectServer1().execute(null, null, null);
+
 				}
 
 			}
@@ -128,24 +136,49 @@ public class MainActivity extends ActionBarActivity {
 		listViewResult.setAdapter(Adapter);
 		listViewResult.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		listViewResult.setOnItemClickListener(onClickListItem);
+		// listViewResult.setOnItemSelectedListener(listener);
+
 		intent = getIntent();
 		driver_id = intent.getExtras().getString("DRIID");
 
 		new ConnectServer().execute(null, null, null);
 
-	}
+	} 
+
+	/*
+	 * private OnItemSelectedListener listener = new OnItemSelectedListener() {
+	 * 
+	 * @Override public void onItemSelected(AdapterView<?> parent, View view,
+	 * int position, long id) { // TODO Auto-generated method stub
+	 * Toast.makeText(getApplicationContext(), Adapter.getItem(position),
+	 * Toast.LENGTH_SHORT).show();
+	 * 
+	 * select_item_list.add(item_list.get(position));
+	 * select_cus_list.add(cus_list.get(position));
+	 * 
+	 * }
+	 * 
+	 * @Override public void onNothingSelected(AdapterView<?> parent) { // TODO
+	 * Auto-generated method stub
+	 * 
+	 * } };
+	 */
 
 	private OnItemClickListener onClickListItem = new OnItemClickListener() {
 
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
+
 			// TODO Auto-generated method stub
 			Toast.makeText(getApplicationContext(), Adapter.getItem(position),
 					Toast.LENGTH_SHORT).show();
+
 			select_item_list.add(item_list.get(position));
 			select_cus_list.add(cus_list.get(position));
+
 		}
+
 	};
 
 	// send_btn
@@ -219,6 +252,53 @@ public class MainActivity extends ActionBarActivity {
 
 			}
 		}
+	}
+
+	private class ConnectServer1 extends AsyncTask<Void, Void, Void> {
+
+		@Override
+		protected Void doInBackground(Void... params) {
+
+			HttpClient client = new DefaultHttpClient();
+			List<NameValuePair> values = new ArrayList<NameValuePair>();
+			values.add(new BasicNameValuePair("DRIID", driver_id));
+
+			HttpParams param = client.getParams();
+			HttpConnectionParams.setConnectionTimeout(param, 5000);
+			HttpConnectionParams.setSoTimeout(param, 5000);
+
+			try {
+
+				URI uri = new URI(url_DeletePhoneId);
+				HttpPost httpPost = new HttpPost(uri);
+				UrlEncodedFormEntity entity = new UrlEncodedFormEntity(values,
+						"UTF-8");
+				httpPost.setEntity(entity);
+				HttpResponse response = client.execute(httpPost);
+				String _result = EntityUtils.toString(response.getEntity());
+				if (_result.contains("success")) {
+					result_DeletePhoneId = true;
+				} else
+					result_DeletePhoneId = false;
+			} catch (Exception e) {
+				Log.d("aaa", "error : " + e.toString());
+
+			}
+			return null;
+		}
+		/*
+		 * @Override protected void onPostExecute(Void res){
+		 * super.onPostExecute(res);
+		 * 
+		 * if(result_test){
+		 * 
+		 * toast = Toast.makeText(getApplicationContext(), "Id 해제 성공",
+		 * Toast.LENGTH_SHORT); toast.show(); finish(); } else{ toast =
+		 * Toast.makeText(getApplicationContext(), "아이디가 이미 있습니다.",
+		 * Toast.LENGTH_SHORT); toast.show(); }
+		 * 
+		 * }
+		 */
 	}
 
 	@Override

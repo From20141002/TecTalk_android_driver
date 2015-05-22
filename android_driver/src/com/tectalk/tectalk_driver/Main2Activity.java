@@ -66,8 +66,8 @@ public class Main2Activity extends Activity {
 
 	private void SaveInfo(){
 		
-		Log.d("aaa", editId.getText().toString());
-		Log.d("aaa", phoneId);
+		//Log.d("aaa", editId.getText().toString());
+		//Log.d("aaa", phoneId);
 		
 		if(editId.getText().toString().length() !=0){
 			driId = editId.getText().toString();
@@ -76,7 +76,7 @@ public class Main2Activity extends Activity {
 		}else{
 			toast = Toast.makeText(getApplicationContext(), "사용자 Id를 입력하세요.", Toast.LENGTH_SHORT);
 			toast.show();
-		}
+		} 
 	}
 	private class ConnectServer extends AsyncTask<Void,Void,Void>{
 
