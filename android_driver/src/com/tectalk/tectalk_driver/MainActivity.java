@@ -83,6 +83,7 @@ public class MainActivity extends ActionBarActivity {
 	private ArrayList<String> select_item_list = new ArrayList<String>();//
 	private ArrayList<String> select_cus_list = new ArrayList<String>();//
 	private ArrayList<String> cus_list = new ArrayList<String>();//
+	private ArrayList<Integer> select_list = new ArrayList<Integer>();//
 
 	// private ArrayAdapter<String> Adapter_select_list;// m
 
@@ -143,26 +144,7 @@ public class MainActivity extends ActionBarActivity {
 
 		new ConnectServer().execute(null, null, null);
 
-	} 
-
-	/*
-	 * private OnItemSelectedListener listener = new OnItemSelectedListener() {
-	 * 
-	 * @Override public void onItemSelected(AdapterView<?> parent, View view,
-	 * int position, long id) { // TODO Auto-generated method stub
-	 * Toast.makeText(getApplicationContext(), Adapter.getItem(position),
-	 * Toast.LENGTH_SHORT).show();
-	 * 
-	 * select_item_list.add(item_list.get(position));
-	 * select_cus_list.add(cus_list.get(position));
-	 * 
-	 * }
-	 * 
-	 * @Override public void onNothingSelected(AdapterView<?> parent) { // TODO
-	 * Auto-generated method stub
-	 * 
-	 * } };
-	 */
+	}
 
 	private OnItemClickListener onClickListItem = new OnItemClickListener() {
 
@@ -171,11 +153,19 @@ public class MainActivity extends ActionBarActivity {
 				long id) {
 
 			// TODO Auto-generated method stub
-			Toast.makeText(getApplicationContext(), Adapter.getItem(position),
-					Toast.LENGTH_SHORT).show();
+			String msg = "";
+			if (listViewResult.isItemChecked(position)) {
+				select_list.add(position);
+				msg = "체크되었습니다";
+			} else {
+				int index;
+				index = select_list.indexOf(position);
+				select_list.remove(index);
+				msg = "체크해제되었습니다";
+			}
 
-			select_item_list.add(item_list.get(position));
-			select_cus_list.add(cus_list.get(position));
+			Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT)
+					.show();
 
 		}
 
@@ -186,6 +176,14 @@ public class MainActivity extends ActionBarActivity {
 	public void onClickView(View v) {
 		switch (v.getId()) {
 		case R.id.send_btn:
+			select_cus_list.clear();
+			select_item_list.clear();
+			for(int i=0; i<select_list.size(); i++){
+				int index;
+				index = select_list.get(i);
+				select_cus_list.add(cus_list.get(index));
+				select_item_list.add(item_list.get(index));
+			}
 			intent_item = new Intent(getApplicationContext(),
 					DialogActivity.class);
 			intent_item.putExtra("DRIID", driver_id);
@@ -286,14 +284,15 @@ public class MainActivity extends ActionBarActivity {
 			}
 			return null;
 		}
+
 		/*
-		 * @Override protected void onPostExecute(Void res){
+		 * @Override protected void onPostExecute(Void res) {
 		 * super.onPostExecute(res);
 		 * 
-		 * if(result_test){
+		 * if (result_test) {
 		 * 
 		 * toast = Toast.makeText(getApplicationContext(), "Id 해제 성공",
-		 * Toast.LENGTH_SHORT); toast.show(); finish(); } else{ toast =
+		 * Toast.LENGTH_SHORT); toast.show(); finish(); } else { toast =
 		 * Toast.makeText(getApplicationContext(), "아이디가 이미 있습니다.",
 		 * Toast.LENGTH_SHORT); toast.show(); }
 		 * 
