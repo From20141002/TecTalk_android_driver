@@ -35,7 +35,7 @@ public class SigninActivity extends ActionBarActivity {
 	private EditText edittxtPhone_signin;
 	private EditText edittxtCompany_signin;
 	private Button btnSubmit;
-	
+	 
 	private String driver_id;
 	private String driver_pw;
 	private String driver_name;

@@ -54,7 +54,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
-
+ 
 	// gcm
 	public static Context mContext = null; // ?
 	// 푸쉬를 받기/받지 않기를 설정하기 위한 체크박스

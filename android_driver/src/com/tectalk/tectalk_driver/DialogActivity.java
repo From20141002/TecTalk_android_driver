@@ -41,7 +41,7 @@ public class DialogActivity extends ActionBarActivity {
 
 	private Intent intent;
 	private boolean result = false;
-
+ 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

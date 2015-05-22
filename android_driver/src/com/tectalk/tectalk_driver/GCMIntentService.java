@@ -44,7 +44,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	@Override
 	protected void onError(Context arg0, String arg1) {
 		// TODO Auto-generated method stub
-
+  
 	}
 	@Override
 	protected void onMessage(Context arg0, Intent arg1) {

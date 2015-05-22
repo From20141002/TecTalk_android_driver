@@ -32,7 +32,7 @@
         android:ems="10"
         android:inputType="textPassword"
          />
-
+ 
     <Button
         android:id="@+id/btnSignin"
         android:layout_width="wrap_content"

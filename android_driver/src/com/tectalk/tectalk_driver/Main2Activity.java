@@ -139,7 +139,7 @@ public class Main2Activity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu); //¿ø·¡ main
 		return true;
 	}
-
+ 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
