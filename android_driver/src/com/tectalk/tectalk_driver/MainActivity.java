@@ -62,7 +62,6 @@ public class MainActivity extends ActionBarActivity {
 	public static String PROJECT_ID = "619658958148";
 	private String phoneDri;
 	public Toast toast;
-	private Button btnLogout;
 	private Button btnSend;
 
 	private DialogActivity mCustomDialog;// m
@@ -100,10 +99,8 @@ public class MainActivity extends ActionBarActivity {
 		// gcm
 		mContext = this;
 		phoneDri = GCMRegistrar.getRegistrationId(mContext);
-		btnLogout = (Button)findViewById(R.id.btnLogout);
 		btnSend = (Button)findViewById(R.id.btnSend);
 		btnSend.setOnClickListener(mClickListener);
-		btnLogout.setOnClickListener(mClickListener);
 		setting = getSharedPreferences("setting", 0);
 		editor = setting.edit();
 		cb_setting = (CheckBox) findViewById(R.id.gcmBox);
@@ -204,13 +201,6 @@ public class MainActivity extends ActionBarActivity {
 				intent_item.putExtra("CUSINFO", select_cus_list);
 				startActivity(intent_item);
 				break;
-				
-			case R.id.btnLogout:
-				editor.clear();
-				editor.commit();
-				Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-				startActivity(intent);
-				finish();
 			}
 			// TODO Auto-generated method stub
 			
@@ -323,8 +313,15 @@ public class MainActivity extends ActionBarActivity {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
+		if (id == R.id.itemLogout) {
+			editor.clear();
+			editor.commit();
+			Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+			startActivity(intent);
+			finish();
+		}else if(id == R.id.itemSetting){
+			Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+			startActivity(intent);
 		}
 		return super.onOptionsItemSelected(item);
 	}

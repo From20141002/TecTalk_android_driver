@@ -4,9 +4,15 @@
     tools:context="com.tectalk.tectalk_driver.MainActivity" >
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/itemLogout"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="로그아웃"
+        app:showAsAction="never"/>
+    
+    <item
+        android:id="@+id/itemSetting"
+        android:orderInCategory="100"
+        android:title="설정"
         app:showAsAction="never"/>
 
 </menu>
