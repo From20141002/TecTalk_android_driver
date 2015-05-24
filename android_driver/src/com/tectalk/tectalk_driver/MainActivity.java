@@ -24,6 +24,7 @@ import org.json.JSONObject;
 
 import com.google.android.gcm.GCMRegistrar;
 
+import android.app.PendingIntent.OnFinished;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -314,7 +315,12 @@ public class MainActivity extends ActionBarActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.itemLogout) {
-			editor.clear();
+			editor.remove("ID");
+			editor.remove("setSound");
+			editor.remove("setVibrate");
+			editor.remove("timeOne");
+			editor.remove("timeTwo");
+			editor.remove("timeThree");
 			editor.commit();
 			Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
 			startActivity(intent);

@@ -72,6 +72,12 @@ public class LoginActivity extends Activity {
 			startActivity(intent);
 			finish();
 		}
+		editor.remove("setSound");
+		editor.remove("setVibrate");
+		editor.remove("timeOne");
+		editor.remove("timeTwo");
+		editor.remove("timeThree");
+		editor.commit();
 		edittxtID = (EditText)findViewById(R.id.edittxtID);
 		edittxtPW = (EditText)findViewById(R.id.edittxtPW);
 		btnLogin = (Button)findViewById(R.id.btnLogin);
