@@ -35,11 +35,11 @@
         android:text="푸쉬 받기 설정" />
 
     <Button
-        android:id="@+id/btnCancel"
+        android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/btnSend"
-        android:text="자동로그인해제" />
+        android:text="로그아웃" />
 
 </RelativeLayout>

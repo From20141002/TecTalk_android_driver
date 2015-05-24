@@ -66,9 +66,6 @@ public class Main2Activity extends Activity {
 
 	private void SaveInfo(){
 		
-		//Log.d("aaa", editId.getText().toString());
-		//Log.d("aaa", phoneId);
-		
 		if(editId.getText().toString().length() !=0){
 			driId = editId.getText().toString();
 			new ConnectServer().execute(null,null,null);

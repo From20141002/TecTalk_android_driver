@@ -62,7 +62,7 @@ public class MainActivity extends ActionBarActivity {
 	public static String PROJECT_ID = "619658958148";
 	private String phoneDri;
 	public Toast toast;
-	private Button btnCancel;
+	private Button btnLogout;
 	private Button btnSend;
 
 	private DialogActivity mCustomDialog;// m
@@ -100,10 +100,10 @@ public class MainActivity extends ActionBarActivity {
 		// gcm
 		mContext = this;
 		phoneDri = GCMRegistrar.getRegistrationId(mContext);
-		btnCancel = (Button)findViewById(R.id.btnCancel);
+		btnLogout = (Button)findViewById(R.id.btnLogout);
 		btnSend = (Button)findViewById(R.id.btnSend);
-		btnCancel.setOnClickListener(mClickListener);
-		btnCancel.setOnClickListener(mClickListener);
+		btnLogout.setOnClickListener(mClickListener);
+		btnLogout.setOnClickListener(mClickListener);
 		setting = getSharedPreferences("setting", 0);
 		editor = setting.edit();
 		cb_setting = (CheckBox) findViewById(R.id.gcmBox);
@@ -205,9 +205,12 @@ public class MainActivity extends ActionBarActivity {
 				startActivity(intent_item);
 				break;
 				
-			case R.id.btnCancel:
+			case R.id.btnLogout:
 				editor.clear();
 				editor.commit();
+				Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+				startActivity(intent);
+				finish();
 			}
 			// TODO Auto-generated method stub
 			
@@ -304,20 +307,6 @@ public class MainActivity extends ActionBarActivity {
 			}
 			return null;
 		}
-
-		/*
-		 * @Override protected void onPostExecute(Void res) {
-		 * super.onPostExecute(res);
-		 * 
-		 * if (result_test) {
-		 * 
-		 * toast = Toast.makeText(getApplicationContext(), "Id 해제 성공",
-		 * Toast.LENGTH_SHORT); toast.show(); finish(); } else { toast =
-		 * Toast.makeText(getApplicationContext(), "아이디가 이미 있습니다.",
-		 * Toast.LENGTH_SHORT); toast.show(); }
-		 * 
-		 * }
-		 */
 	}
 
 	@Override
