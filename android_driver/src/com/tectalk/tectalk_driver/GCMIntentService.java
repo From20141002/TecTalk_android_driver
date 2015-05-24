@@ -19,19 +19,15 @@ import org.json.JSONObject;
 
 import com.google.android.gcm.GCMBaseIntentService;
 
-import android.R.bool;
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 public class GCMIntentService extends GCMBaseIntentService {
@@ -56,10 +52,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 			Log.d("test", jObject.toString());
 
 			String test = jObject.toString();
-			Vibrator vibrator = (Vibrator) arg0
-					.getSystemService(Context.VIBRATOR_SERVICE);
-			vibrator.vibrate(1000);
-			SetNotification(arg0, test);
+			SetNotification(test);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,17 +60,27 @@ public class GCMIntentService extends GCMBaseIntentService {
 		// TODO Auto-generated method stub
 
 	}
-	private void SetNotification(Context arg0, String test) {
+	private void SetNotification(String test) {
 		// TODO Auto-generated method stub
 		NotificationManager notificationManager = null;
 		Notification notification = null;
+		SharedPreferences setting;
+		setting = PreferenceManager.getDefaultSharedPreferences(this);
+	
 		try {
-			notificationManager = (NotificationManager) arg0
-					.getSystemService(arg0.NOTIFICATION_SERVICE);
-			notification = new Notification(R.drawable.ic_launcher,test,System.currentTimeMillis());
-			Intent intent = new Intent(arg0, NotificationActivity.class);
-			PendingIntent pi = PendingIntent.getActivity(arg0, 0, intent, 0);
-			notification.setLatestEventInfo(arg0,"alarmhihi", test, pi);
+			notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+			notification = new Notification(R.drawable.ic_launcher, test,System.currentTimeMillis());
+			if(setting.getBoolean("setSound", true)){
+				notification.defaults |= Notification.DEFAULT_SOUND;
+			}
+			if(setting.getBoolean("setVibrate", true)){
+				notification.defaults |= Notification.DEFAULT_VIBRATE;
+			}
+			notification.flags |= Notification.FLAG_AUTO_CANCEL;
+					
+			Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);
+			PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 0, intent, 0);
+			notification.setLatestEventInfo(getApplicationContext(),"alarmhihi", test, pi);
 			notificationManager.notify(1,notification);
 
 		} catch (Exception e) {

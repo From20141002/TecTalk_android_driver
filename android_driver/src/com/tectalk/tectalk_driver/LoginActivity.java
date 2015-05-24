@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,7 +62,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		setting = getSharedPreferences("setting", 0);
+		setting = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = setting.edit();
 		
 		
@@ -180,11 +181,8 @@ public class LoginActivity extends Activity {
 				toast.show();
 				if(autoLogin){
 					driver_id = edittxtID.getText().toString();
-					driver_pw = edittxtPW.getText().toString();
-					
+					driver_pw = edittxtPW.getText().toString();		
 					editor.putString("ID", driver_id);
-					editor.putString("PW", driver_pw);
-					editor.putBoolean("Auto_Login_enabled", true);//¿Ö³ÖÁö
 					editor.commit();
 				}
 				intent = new Intent(getApplicationContext(), MainActivity.class);

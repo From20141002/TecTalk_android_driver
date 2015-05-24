@@ -29,19 +29,19 @@
             android:orientation="vertical" >
 
             <Button
-                android:id="@+id/btn_15minute"
+                android:id="@+id/btnTimeOne"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="15 minute" />
 
             <Button
-                android:id="@+id/btn_30minute"
+                android:id="@+id/btnTimeTwo"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="30 minute" />
 
             <Button
-                android:id="@+id/btn_60minute"
+                android:id="@+id/btnTimeThree"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="60 minute" />

@@ -30,6 +30,7 @@ import android.content.SharedPreferences;
 import android.media.session.PlaybackState.CustomAction;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.internal.widget.AdapterViewCompat;
 import android.text.InputFilter.LengthFilter;
@@ -89,7 +90,6 @@ public class MainActivity extends ActionBarActivity {
 
 	SharedPreferences setting;
 	SharedPreferences.Editor editor;
-	// private ArrayAdapter<String> Adapter_select_list;// m
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +101,7 @@ public class MainActivity extends ActionBarActivity {
 		phoneDri = GCMRegistrar.getRegistrationId(mContext);
 		btnSend = (Button)findViewById(R.id.btnSend);
 		btnSend.setOnClickListener(mClickListener);
-		setting = getSharedPreferences("setting", 0);
+		setting = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = setting.edit();
 		cb_setting = (CheckBox) findViewById(R.id.gcmBox);
 		cb_setting.setChecked(!GCMRegistrar.getRegistrationId(mContext).equals(

@@ -17,8 +17,10 @@ import org.apache.http.util.EntityUtils;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.View;
@@ -30,9 +32,9 @@ import android.widget.Toast;
 
 public class DialogActivity extends Activity {
 	
-	private Button m15Button;
-	private Button m30Button;
-	private Button m60Button;
+	private Button btnTimeOne;
+	private Button btnTimeTwo;
+	private Button btnTimeThree;
 	private TextView txtviewSelect;
 
 	private String driId; 
@@ -42,6 +44,9 @@ public class DialogActivity extends Activity {
 
 	private Intent intent;
 	private boolean result = false;
+	private String timeOne;
+	private String timeTwo;
+	private String timeThree;
  
 	
 	@Override
@@ -54,14 +59,25 @@ public class DialogActivity extends Activity {
 		getWindow().setAttributes(lpWindow);
 
 		setContentView(R.layout.activity_dialog);
+		
+		SharedPreferences setting;
+		setting = PreferenceManager.getDefaultSharedPreferences(this);
 
-		m15Button = (Button) findViewById(R.id.btn_15minute);
-		m30Button = (Button) findViewById(R.id.btn_30minute);
-		m60Button = (Button) findViewById(R.id.btn_60minute);
+		btnTimeOne = (Button) findViewById(R.id.btnTimeOne);
+		btnTimeTwo = (Button) findViewById(R.id.btnTimeTwo);
+		btnTimeThree = (Button) findViewById(R.id.btnTimeThree);
+		
+		timeOne = setting.getString("timeOne", "15분");
+		timeTwo = setting.getString("timeTwo", "15분");
+		timeThree = setting.getString("timeThree", "15분");
+		
+		btnTimeOne.setText(timeOne+"분");
+		btnTimeTwo.setText(timeTwo+"분");
+		btnTimeThree.setText(timeThree+"분");
 
-		m15Button.setOnClickListener(m15ClickListener);
-		m30Button.setOnClickListener(m30ClickListener);
-		m60Button.setOnClickListener(m60ClickListener);
+		btnTimeOne.setOnClickListener(oneClickListener);
+		btnTimeTwo.setOnClickListener(twoClickListener);
+		btnTimeThree.setOnClickListener(threeClickListener);
 		txtviewSelect = (TextView) findViewById(R.id.txtviewSelect);
 
 		intent = getIntent();
@@ -83,32 +99,32 @@ public class DialogActivity extends Activity {
 	}
 
 	
-	private OnClickListener m15ClickListener = new OnClickListener() {
+	private OnClickListener oneClickListener = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
-			Toast.makeText(getApplicationContext(), "15minute",
+			Toast.makeText(getApplicationContext(), timeOne ,
 					Toast.LENGTH_SHORT).show();
-			pushToCus("15");
+			pushToCus(timeOne);
 		}
 
 	};
-	private OnClickListener m30ClickListener = new OnClickListener() {
+	private OnClickListener twoClickListener = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
-			Toast.makeText(getApplicationContext(), "30minute",
+			Toast.makeText(getApplicationContext(), timeTwo,
 					Toast.LENGTH_SHORT).show();
-			pushToCus("30");
+			pushToCus(timeTwo);
 		}
 	};
-	private OnClickListener m60ClickListener = new OnClickListener() {
+	private OnClickListener threeClickListener = new OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
-			Toast.makeText(getApplicationContext(), "60minute",
+			Toast.makeText(getApplicationContext(), timeThree,
 					Toast.LENGTH_SHORT).show();
-			pushToCus("60");
+			pushToCus(timeThree);
 		}
 	};
 	
