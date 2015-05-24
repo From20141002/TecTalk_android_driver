@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="알림 설정" >
+        
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key = "setSound"
+            android:switchTextOn="ON"            android:switchTextOff="OFF"            android:title = "소리 알림"/>                <SwitchPreference            android:defaultValue="true"            android:key = "setVibrate"            android:switchTextOn="ON"            android:switchTextOff="OFF"            android:title = "진동 알림"/>
+    </PreferenceCategory>        <PreferenceCategory android:title="시간 설정">        <EditTextPreference             android:defaultValue="15"            android:key="timeOne"            android:maxLines="1"            android:selectAllOnFocus="true"            android:inputType="phone"            android:title="첫번째 버튼"            android:summary="15분"/>        <EditTextPreference             android:defaultValue="30"            android:key="timeTwo"            android:maxLines="1"            android:selectAllOnFocus="true"            android:inputType="phone"            android:title="두번째 버튼"            android:summary="30분"/>        <EditTextPreference             android:defaultValue="60"            android:key="timeThree"            android:maxLines="1"            android:selectAllOnFocus="true"            android:inputType="phone"            android:title="세번째 버튼"            android:summary="60분"/>    </PreferenceCategory>    </PreferenceScreen>
