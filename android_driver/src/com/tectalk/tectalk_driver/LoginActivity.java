@@ -55,7 +55,7 @@ public class LoginActivity extends Activity {
 	SharedPreferences setting;
 	SharedPreferences.Editor editor;
 	private boolean autoLogin = false;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

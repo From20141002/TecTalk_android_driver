@@ -69,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
 
 	private Intent intent;
 	private Intent intent_item;
-	private String driver_id;
+	public static String driver_id;
 	private String url = "http://182.162.90.100/TecTalk/GetItemInfo";
 	private String url_DeletePhoneId = "http://182.162.90.100/TecTalk/DeletePhoneId";
 	private String result;
@@ -102,7 +102,7 @@ public class MainActivity extends ActionBarActivity {
 		phoneDri = GCMRegistrar.getRegistrationId(mContext);
 		btnLogout = (Button)findViewById(R.id.btnLogout);
 		btnSend = (Button)findViewById(R.id.btnSend);
-		btnLogout.setOnClickListener(mClickListener);
+		btnSend.setOnClickListener(mClickListener);
 		btnLogout.setOnClickListener(mClickListener);
 		setting = getSharedPreferences("setting", 0);
 		editor = setting.edit();
@@ -299,6 +299,7 @@ public class MainActivity extends ActionBarActivity {
 				String _result = EntityUtils.toString(response.getEntity());
 				if (_result.contains("success")) {
 					result_DeletePhoneId = true;
+					Log.d("aaa","success");
 				} else
 					result_DeletePhoneId = false;
 			} catch (Exception e) {

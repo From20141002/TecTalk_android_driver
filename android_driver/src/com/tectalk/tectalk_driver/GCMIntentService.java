@@ -32,11 +32,12 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class GCMIntentService extends GCMBaseIntentService {
 	
 	boolean result = false;
-	
+	public String url = new String("http://182.162.90.100/TecTalk/SaveDriGCM");
 	Intent intent;
 	Intent intent1;// m
 	
@@ -88,14 +89,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 	protected void onRegistered(Context arg0, String phoneId) {
 		// TODO Auto-generated method stub
 		Log.d("test", "등록ID:" + phoneId);
-
-		Context context = getApplicationContext();
-		Intent intent = new Intent(context, Main2Activity.class);
-		
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.putExtra("PHONEID", phoneId);// m
-		context.startActivity(intent);// m
-
+		new ConnectServer().execute(phoneId);
 	}
 	
 	@Override
@@ -110,4 +104,52 @@ public class GCMIntentService extends GCMBaseIntentService {
 		super("619658958148");
 		Log.d("test", "GCM 서비스 생성자 실행");
 	}	
+	
+	private class ConnectServer extends AsyncTask<String,Void,Void>{
+
+		@Override
+		protected Void doInBackground(String... params) {
+			
+			HttpClient client = new DefaultHttpClient();
+			List<NameValuePair> values = new ArrayList<NameValuePair>();
+			values.add(new BasicNameValuePair("DRIID", MainActivity.driver_id));
+			values.add(new BasicNameValuePair("PHONEID", params[0]));
+
+			
+			HttpParams param = client.getParams();
+			HttpConnectionParams.setConnectionTimeout(param, 5000);
+			HttpConnectionParams.setSoTimeout(param, 5000);
+			
+			
+			try {
+				
+				URI uri = new URI(url);
+				HttpPost httpPost = new HttpPost(uri);
+				UrlEncodedFormEntity entity = new UrlEncodedFormEntity(values, "UTF-8");
+				httpPost.setEntity(entity);
+				HttpResponse response = client.execute(httpPost);
+				String _result = EntityUtils.toString(response.getEntity());
+				if(_result.contains("success")){
+					result = true;
+				} else result = false;
+			} catch(Exception e){
+				Log.d("aaa","error : " + e.toString());
+				
+			} return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void res){
+			super.onPostExecute(res);
+
+			Toast toast;
+			if(result){
+				toast = Toast.makeText(getApplicationContext(), "Id 등록 성공", Toast.LENGTH_SHORT);
+				toast.show();
+			} else{
+				toast = Toast.makeText(getApplicationContext(), "아이디가 이미 있습니다.", Toast.LENGTH_SHORT);
+				toast.show();
+			}
+		}
+	}
 }
