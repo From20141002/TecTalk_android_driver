@@ -67,9 +67,9 @@ public class DialogActivity extends Activity {
 		btnTimeTwo = (Button) findViewById(R.id.btnTimeTwo);
 		btnTimeThree = (Button) findViewById(R.id.btnTimeThree);
 		
-		timeOne = setting.getString("timeOne", "15분");
-		timeTwo = setting.getString("timeTwo", "15분");
-		timeThree = setting.getString("timeThree", "15분");
+		timeOne = setting.getString("timeOne", "15");
+		timeTwo = setting.getString("timeTwo", "30");
+		timeThree = setting.getString("timeThree", "60");
 		
 		btnTimeOne.setText(timeOne+"분");
 		btnTimeTwo.setText(timeTwo+"분");
