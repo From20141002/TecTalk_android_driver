@@ -102,6 +102,7 @@ public class MainActivity extends ActionBarActivity {
 		phoneDri = GCMRegistrar.getRegistrationId(mContext);
 		btnSend = (Button)findViewById(R.id.btnSend);
 		btnSend.setOnClickListener(mClickListener);
+		btnSend.setEnabled(false);
 		setting = PreferenceManager.getDefaultSharedPreferences(this);
 		editor = setting.edit();
 		cb_setting = (CheckBox) findViewById(R.id.gcmBox);
@@ -166,11 +167,15 @@ public class MainActivity extends ActionBarActivity {
 			if (listViewResult.isItemChecked(position)) {
 				select_list.add(position);
 				msg = "체크되었습니다";
+				btnSend.setEnabled(true);
 			} else {
 				int index;
 				index = select_list.indexOf(position);
 				select_list.remove(index);
 				msg = "체크해제되었습니다";
+				if(select_list.isEmpty()){
+					btnSend.setEnabled(false);
+				}
 			}
 
 			Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_SHORT)
